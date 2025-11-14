@@ -4,7 +4,7 @@ const userAuthSchema = new mongoose.Schema(
     {
         email: {type: String, required: true, unique: true, lowercase: true, trim: true},
         passwordHash: {type: String, required: true},
-        userInfo: {type: mongoose.Schema.Types.ObjectId, ref: "UserInfo"}
+        userInfo: {type: mongoose.Schema.Types.ObjectId, ref: 'UserInfo', required: true }
     },
     { timestamps: true}
 
