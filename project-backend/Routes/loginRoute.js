@@ -17,20 +17,6 @@ const signAccessToken = (UserAuthid) => {
   return token;
 };
 
-const requireAuth = (req, res, next) => {
-    try{
-        const token = req.headers.token;
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
-        const UserAuthid = payload.sub;
-        req.UserAuthid = UserAuthid;
-        return next();
-    }
-    catch(error)
-    {
-        return res.status(401).json({error: "Invalid Token"})
-    }
-}
-
 router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -48,18 +34,13 @@ router.post("/", async (req, res) => {
       // UserAuth is Authenticated
       console.log("User Authenticated");
       const token = signAccessToken(User._id);
-      return res.json({ token });
+      return res.json({ token,  });
     } else {
       return res.status(404).json({ error: "password wrong" });
     }
   } catch (error) {
     return res.status(500).json({ exp: error });
   }
-});
-
-//endpoint for vendors 
-router.get("/secretEndpoint",requireAuth, async (req,res)=>{
-   return res.json({"message": "this is a example for the end point that needs to be shown to authenticated User"});
 });
 
 module.exports = router;
