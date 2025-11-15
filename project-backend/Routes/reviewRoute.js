@@ -32,22 +32,19 @@ router.get("/:id", requireAuth, async (req, res) => {
 
 //Add review
 
-router.post("/", requireAuth, async (req, res) => {
+router.post("/", async (req, res) => {
     try {
-        const { name, review, rating, item } = req.body;
+        const { name, review, item, userInfo } = req.body;
 
-        if (!name || !review || !rating || !item) {
+        if (!name || !review || !item || !userInfo) {
             return res.status(400).json({
-                error: "name, review, rating, and item are required."
+                error: "name, review, item, and userInfo are required."
             });
         }
-
-        const userInfo = req.UserAuthid;
 
         const newReview = await Review.create({
             name,
             review,
-            rating,
             item,
             userInfo
         });
