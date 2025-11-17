@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
 
     const passwordHash = await bcrypt.hash(password, 1);
     const userInfo = await UserInfo.create({name, address});
-    const userAuth = await UserAuth.create({ email, passwordHash, userInfo });
+    const userAuth = await UserAuth.create({ email, passwordHash, userInfo: userInfo._id });
     
     if (userAuth) {
       return res.status(201).json({ isReg: true });
