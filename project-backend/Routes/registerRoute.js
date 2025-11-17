@@ -1,7 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const UserAuth = require("../Models/UsersAuth");
-const UserInfo = require("../Models/UserInfo");
+const User = require("../Models/Users");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -12,16 +11,15 @@ router.post("/", async (req, res) => {
         .status(400)
         .json({ error: "email or password or name is missing" });
     }
-    const exists = await UserAuth.findOne({ email });
+    const exists = await User.findOne({ email });
     if (exists) {
       return res.status(400).json({ error: "User already exists" });
     }
 
     const passwordHash = await bcrypt.hash(password, 1);
-    const userInfo = await UserInfo.create({name, address});
-    const userAuth = await UserAuth.create({ email, passwordHash, userInfo: userInfo._id });
+    const user = await User.create({ email, passwordHash, name, address});
     
-    if (userAuth) {
+    if (user) {
       return res.status(201).json({ isReg: true });
     } else {
       return res.status(400).json({ error: "model validations failed" });

@@ -17,17 +17,13 @@ const requireAuth = (req, res, next) => {
 }
 
 //endpoint for vendors to see item
-router.get("/:id", requireAuth, async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
     try {
             const vendorId = req.UserAuthid;
-            const itemId = req.params.id;
             // Return the item that belongs to this vendor
             const item = await Item.findOne({
-                _id: itemId,
-                vendor: vendorId
-            })
-            .populate("userInfo")
-            .populate("vendor");
+                user: vendorId
+            });
             if (!item) {
                 return res.status(404).json({
                     status: "error",
@@ -48,8 +44,8 @@ router.get("/:id", requireAuth, async (req, res) => {
 //POST req to add item following item schema
 router.post("/", requireAuth, async (req, res) =>{
     try {
-            const vendorId = req.UserAuthid;
-            const { name, price, userInfoId } = req.body;
+            const user = req.UserAuthid;
+            const { name, price} = req.body;
             if (!name || !price) {
                 return res.status(400).json({
                     error: "Item name and price are required"
@@ -58,8 +54,7 @@ router.post("/", requireAuth, async (req, res) =>{
             const newItem = new Item({
                 name,
                 price,
-                userInfo: userInfoId || null,
-                vendor: vendorId
+                user
             });
             await newItem.save();
             return res.status(201).json({
@@ -73,7 +68,35 @@ router.post("/", requireAuth, async (req, res) =>{
 });
 
 //Update items
+router.put("/:id", requireAuth, async (req, res) =>{
+    try{
+        const item = req.params.id;
+        if(!item){
+            return res.status(401).json({error: "Cannot find item"});
+        }
+        const updatedItem = req.body;
+        const newItem = await Item.findByIdAndUpdate(item, updatedItem, {new: true} );
+        return res.status(201).json({status: "Updated", newItem});
+    }
+    catch(error){
+        return res.status(500).json({error: "Could not update item"});
+    }
+});
 
 //Delete items
+
+router.delete("/:id", requireAuth, async (req, res) =>{
+    try {
+        const item = req.params.id;
+        if(!item){
+            return res.status(401).json({error: "Cannot find item"});
+        }
+        await Item.findByIdAndDelete(item);
+        return res.status(200).json({status: "Deleted"});
+    } 
+    catch (error) {
+        return res.status(500).json({error: "Server error"});
+    }
+});
 
 module.exports = router;

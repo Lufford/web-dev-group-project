@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const UserAuth = require("../Models/UsersAuth");
+const User = require("../Models/Users");
 const router = express.Router();
 require("dotenv").config();
 
@@ -23,21 +23,18 @@ router.post("/", async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({ error: "email or password is missing" });
         }
-        const User = await UserAuth.findOne({ email });
-        if (!User) {
+        const user = await User.findOne({ email });
+        if (!user) {
             return res.status(400).json({ error: "email doesnt match our records" });
         }
         console.log("User found");
-        console.log(User);
-        const isPasswordMatch = await bcrypt.compare(password, User.passwordHash);
+        console.log(user);
+        const isPasswordMatch = await bcrypt.compare(password, user.passwordHash);
         if (isPasswordMatch) {
             // UserAuth is Authenticated
             console.log("User Authenticated");
-            const token = signAccessToken(User._id);
-            const vendorId = (User.userInfo._id);
-            console.log("Vendor Id");
-            console.log(vendorId);
-            return res.json({ token, vendorId});
+            const token = signAccessToken(user._id);
+            return res.json({ token});
         } else {
             return res.status(404).json({ error: "password wrong" });
         }

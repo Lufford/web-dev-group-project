@@ -4,9 +4,7 @@ const itemSchema = new mongoose.Schema(
     {
         name: {type: String, required: true, trim: true},
         price: {type: Number, required: true, trim: true},
-        userInfo: {type: mongoose.Schema.Types.ObjectId, ref: "UserInfo"},
-        vendor: {type: mongoose.Schema.Types.ObjectId, ref: "UserAuth", required: true }
-
+        user: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     },
     { timestamps: true}
 );
