@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const Item = require("../Models/Items.js"); 
 
 const requireAuth = (req, res, next) => {
     try {
