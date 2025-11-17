@@ -32,4 +32,31 @@ router.get("/:id", requireAuth, async (req, res) => {
 
 //Add review
 
+router.post("/", async (req, res) => {
+    try {
+        const { name, review, item, userInfo } = req.body;
+
+        if (!name || !review || !item || !userInfo) {
+            return res.status(400).json({
+                error: "name, review, item, and userInfo are required."
+            });
+        }
+
+        const newReview = await Review.create({
+            name,
+            review,
+            item,
+            userInfo
+        });
+
+        return res.status(201).json({
+            message: "Review added successfully",
+            review: newReview
+        });
+
+    } catch (error) {
+        return res.status(500).json({ error: "Error adding review." });
+    }
+});
+
 module.exports = router;
