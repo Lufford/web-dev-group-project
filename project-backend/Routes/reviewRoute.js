@@ -19,7 +19,7 @@ const requireAuth = (req, res, next) => {
 }
 
 //endpoint for authenticated vendors to see reviews
-router.get("/", requireAuth, async (req, res) => {
+router.get("/customerreviews", requireAuth, async (req, res) => {
     try {
         const userId = req.UserAuthid;
         const reviews = await Review.find({ user: userId }).populate("item");
@@ -36,9 +36,9 @@ router.post("/", async (req, res) => {
     try {
         const { name, review, item, user } = req.body;
 
-        if (!name || !review || !item || !user) {
+        if (!name || !review || !item ) {
             return res.status(400).json({
-                error: "name, review, item, and userInfo are required."
+                error: "name, review and item are required."
             });
         }
 
@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
             name,
             review,
             item,
-            user
+            user: user || null
         });
 
         return res.status(201).json({

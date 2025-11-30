@@ -1,10 +1,12 @@
 /*This component renders a form to add a new item. */
+
 import React, { useState } from "react";
 
 export default function AddItem() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,7 +16,7 @@ export default function AddItem() {
         const token = localStorage.getItem("token");
 
         try {
-            const res = await fetch("http://localhost:3000/items", {
+            const res = await fetch("http://localhost:5000/items", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,6 +51,9 @@ export default function AddItem() {
 
     };
 
+
+
+    
     return (
         <div>
             <h2>Add a new item for customers to review!</h2>
@@ -74,7 +79,7 @@ export default function AddItem() {
                     {loading ? "Adding" : "Add Item"}
                 </button>
             </form>
-          
+            {message && <p>{message}</p>}
         </div>
 
     );
