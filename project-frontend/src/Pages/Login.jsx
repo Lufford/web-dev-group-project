@@ -19,7 +19,7 @@ setError("");
 try {
     console.log("Login request sent");
 
-    const res = await fetch('http://localhost:3000/login', {
+    const res = await fetch('http://localhost:5000/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -32,19 +32,31 @@ try {
     const data = await res.json();
 
     if (!res.ok) {
-        setError(data.error ||"Login failed");
+        setError(data.error ||"Login Incorrect");
+     
     }
 
 /// login succsessful
+if (data.token) {
+
     console.log("Login successful:", data);
 
  
     ///stores token in local storage
     localStorage.setItem("token", data.token);
 
-
-   ///moves to customer reviews page
+       ///moves to customer reviews page
     navigate('/customerreviews');
+
+}else{
+    setError("Login Failed: Unauthorized Credentials");
+
+   
+}
+ 
+
+
+
 
     ///catches errors
 } catch (error) {
@@ -53,6 +65,8 @@ try {
 }
 } 
 
+    
+    if (error) return <p style={{ color: "red"}}>{error}</p>;
 
     return (
 
