@@ -5,7 +5,6 @@ export default function AddItem() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();

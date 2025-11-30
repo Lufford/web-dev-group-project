@@ -66,3 +66,41 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.itemReview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.itemReview-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.itemReview-card {
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  min-width: 200px;
+  max-width: 250px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+}
+
+.itemReview-card:hover {
+  transform: translateY(-5px);
+}
+
+.itemReview-card h3 {
+  margin-top: 0;
+}
+
+.itemReview-card p {
+  margin-bottom: 0;
+}
+

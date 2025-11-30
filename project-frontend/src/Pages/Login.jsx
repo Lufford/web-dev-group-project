@@ -19,7 +19,7 @@ setError("");
 try {
     console.log("Login request sent");
 
-    const res = await fetch('http://localhost:5000/login', {
+    const res = await fetch('http://localhost:3000/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -36,23 +36,25 @@ try {
      
     }
 
-/// login succsessful
-if (data.token) {
+    /// login succsessful
+    else if (data.token) {
 
-    console.log("Login successful:", data);
+        console.log("Login successful:", data);
 
- 
-    ///stores token in local storage
-    localStorage.setItem("token", data.token);
+    
+        ///stores token in local storage
+        localStorage.setItem("token", data.token);
 
-       ///moves to customer reviews page
-    navigate('/customerreviews');
+        ///moves to customer reviews page
+        navigate('/customerreviews');
 
-}else{
-    setError("Login Failed: Unauthorized Credentials");
+    }
+    
+    else{
+        setError("Login Failed: Unauthorized Credentials");
 
-   
-}
+    
+    }
  
 
 

@@ -1,9 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../Models/Users");
 const router = express.Router();
-require("dotenv").config();
 
 
 const signAccessToken = (UserAuthid) => {

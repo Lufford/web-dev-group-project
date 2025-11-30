@@ -10,7 +10,7 @@ export default function ItemReview() {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const res = await fetch("http://localhost:5000/items/public");
+                const res = await fetch("http://localhost:3000/items/public");
 
                 if (!res.ok) {
                     throw new Error("Failed to fetch items");
@@ -19,7 +19,7 @@ export default function ItemReview() {
                 const data = await res.json();
 
                 if (data.status == "ok") {
-                    setItems([data.data]);
+                    setItems(data.data);
                 }
 
                 else {
