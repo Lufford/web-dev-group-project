@@ -99,4 +99,18 @@ router.delete("/:id", requireAuth, async (req, res) =>{
     }
 });
 
+
+//public route for customers to view items
+router.get("/public", async (req, res) => {
+    try {
+        const items = await Item.find({});
+        return  res.json({
+            status: "ok",
+            data: items
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Server error" });
+    }
+});
 module.exports = router;
