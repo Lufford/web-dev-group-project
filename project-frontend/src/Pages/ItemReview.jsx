@@ -95,12 +95,7 @@ export default function ItemReview() {
 
     ///check for token
 
-    const token = localStorage.getItem("token");
-
-        if(!token){
-        setError("Unauthorized: Please log in to view reviews.");
-        setLoading(false);
-    }
+ 
 
     // messages
 

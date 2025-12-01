@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-require("../Models/Items");
+const Item = require("../Models/Items");
 const Review = require("../Models/Reviews");
 
 const requireAuth = (req, res, next) => {
@@ -19,7 +19,7 @@ const requireAuth = (req, res, next) => {
 }
 
 //endpoint for authenticated vendors to see reviews
-router.get("/customerreviews", requireAuth, async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
     try {
         const userId = req.UserAuthid;
         const reviews = await Review.find({ user: userId }).populate("item");
@@ -34,7 +34,7 @@ router.get("/customerreviews", requireAuth, async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const { name, review, item, user } = req.body;
+        const { name, review, item } = req.body;
 
         if (!name || !review || !item ) {
             return res.status(400).json({
@@ -42,11 +42,16 @@ router.post("/", async (req, res) => {
             });
         }
 
+
+        const itemCreator = await Item.findById(item);
+
+        const itemUserId = itemCreator.user;
+
         const newReview = await Review.create({
             name,
             review,
             item,
-            user: user || null
+            user: itemUserId  ///associating review with item creator
         });
 
         return res.status(201).json({

@@ -22,7 +22,7 @@ export default function CustomerReviews() {
                 }
 
             try {
-               const res = await fetch("http://localhost:5000/reviews/customerreviews", {
+               const res = await fetch("http://localhost:5000/reviews", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -30,21 +30,17 @@ export default function CustomerReviews() {
                     },
                 });
 
-                const data = await res.json();
-
+                
                 if (!res.ok) {
                     throw new Error("Failed to fetch reviews");
-                } else{
-                    if(Array.isArray(data.data)){
-                        setReviews(data.data);
-                        }
-                    else{
-                        setReviews([]);
-                        }
-                    }
+                }
                     
-    
+                const data = await res.json();
+                setReviews(data);
+
             } 
+
+            
             
             catch (err) {
                 setError(err.message);
