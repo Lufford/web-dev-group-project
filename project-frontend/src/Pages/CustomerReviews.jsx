@@ -36,12 +36,14 @@ export default function CustomerReviews() {
                 }
                     
                 const data = await res.json();
-                setReviews(data);
+                
+
+                //Delete reviews with missing items
+                const validReviews = data.filter(review => review.item);
+                setReviews(validReviews);
 
             } 
-
-            
-            
+  
             catch (err) {
                 setError(err.message);
             } 
