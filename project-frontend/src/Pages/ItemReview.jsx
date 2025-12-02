@@ -12,7 +12,7 @@ export default function ItemReview() {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const res = await fetch("http://localhost:5000/items/public");
+                const res = await fetch("http://localhost:3000/items/public");
 
                 if (!res.ok) {
                     throw new Error("Failed to fetch items");
@@ -67,7 +67,7 @@ export default function ItemReview() {
             item: itemId};
 
         try {
-            const res = await fetch(`http://localhost:5000/reviews`, {
+            const res = await fetch(`http://localhost:3000/reviews`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json",},
                 body: JSON.stringify(bodyData),
@@ -107,42 +107,41 @@ export default function ItemReview() {
     return (
 
         <div className="Item">
-             <div className = "itemReview-container">
-            <h2>Give us reviews on the items below!</h2>
-            <div className="itemReview-list">
-                {items.length === 0 ? (
-                    <p>No Items Available</p>
-                ) : (
-                    items.map((item) => (
-                        <div key= {item._id} className = "itemReview-card">
-                            <h3>{item.name}</h3>
-                            <p>Price: ${item.price}</p>
+            <div className = "card-container">
+                <h2>Give us reviews on the items below!</h2>
+                
+                <div className="card-list">
+                    {items.length === 0 ? (
+                        <p>No Items Available</p>
+                    ) : (
+                        items.map((item) => (
+                            <div key= {item._id} className = "card">
+                                <h3>{item.name}</h3>
+                                <p>Price: ${item.price}</p>
 
-                <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={reviews[item._id]?.name || ""}
-                    onChange={(e) => handleReviewChange(item._id,"name", e.target.value)}
-                />
+                                <input
+                                    type="text"
+                                    placeholder="Your Name"
+                                    value={reviews[item._id]?.name || ""}
+                                    onChange={(e) => handleReviewChange(item._id,"name", e.target.value)}
+                                />
 
-                <textarea
-                    type="text"
-                    placeholder="Your Review"
-                    value={reviews[item._id]?.review || ""}
-                    onChange={(e) => handleReviewChange(item._id,"review", e.target.value)}
-                />
+                                <textarea
+                                    type="text"
+                                    placeholder="Your Review"
+                                    value={reviews[item._id]?.review || ""}
+                                    onChange={(e) => handleReviewChange(item._id,"review", e.target.value)}
+                                />
 
-                <button onClick={() => handleSubmitReview(item._id)}>Submit Review</button>
-                        </div>
-                    ))
-                )}
+                                <button onClick={() => handleSubmitReview(item._id)}>Submit Review</button>
+                            </div>
+                        ))
+                    )}
+                </div>
+
             </div>
-
-            </div>
-            {message && <p>{message}</p>}
-            <div>
-        </div>
             
+            {message && <p>{message}</p>}           
         </div>
         
 

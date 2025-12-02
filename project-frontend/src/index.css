@@ -67,21 +67,21 @@ button:focus-visible {
   }
 }
 
-.itemReview-container {
+.card-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
 }
 
-.itemReview-list {
+.card-list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
 }
 
-.itemReview-card {
+.card {
   background-color: black;
   color: white;
   border-radius: 10px;
@@ -92,15 +92,15 @@ button:focus-visible {
   transition: transform 0.2s;
 }
 
-.itemReview-card:hover {
+.card:hover {
   transform: translateY(-5px);
 }
 
-.itemReview-card h3 {
+.card h3 {
   margin-top: 0;
 }
 
-.itemReview-card p {
+.card p {
   margin-bottom: 0;
 }
 

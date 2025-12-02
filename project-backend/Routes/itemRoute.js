@@ -21,7 +21,7 @@ router.get("/", requireAuth, async (req, res) => {
     try {
             const vendorId = req.UserAuthid;
             // Return the item that belongs to this vendor
-            const item = await Item.findOne({
+            const item = await Item.find({
                 user: vendorId
             });
             if (!item) {

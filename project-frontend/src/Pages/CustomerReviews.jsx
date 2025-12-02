@@ -22,7 +22,7 @@ export default function CustomerReviews() {
                 }
 
             try {
-               const res = await fetch("http://localhost:5000/reviews", {
+               const res = await fetch("http://localhost:3000/reviews", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -75,22 +75,21 @@ export default function CustomerReviews() {
             
             </nav>
 
-            <div className="reviews-list">
-                {reviews.length === 0 ? (
-                    <p>No reviews available.</p>
-                ) : (
-                    reviews.map((review) => (
-                        <div key={review._id} className="review-card">
-                            <h3>Item: {review.item.name}</h3>
-                            <p><strong>Reviewed by:</strong> {review.name}</p>
-                            <p><strong>Review:</strong> {review.review}</p>
-                        </div>
-                    ))
-                )}
+            <div className="card-container">
+                <div className="card-list">
+                    {reviews.length === 0 ? (
+                        <p>No reviews available.</p>
+                    ) : (
+                        reviews.map((review) => (
+                            <div key={review._id} className="card">
+                                <h3>Item: {review.item.name}</h3>
+                                <p><strong>Reviewed by:</strong> {review.name}</p>
+                                <p><strong>Review:</strong> {review.review}</p>
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
-          
         </div>
-
     );
-
 }
