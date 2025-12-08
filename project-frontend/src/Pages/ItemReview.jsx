@@ -67,7 +67,7 @@ export default function ItemReview() {
             item: itemId};
 
         try {
-            const res = await fetch(`http://localhost:3000/reviews`, {
+            const res = await fetch(`https://web-dev-group-project-backend.onrender.com/reviews`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json",},
                 body: JSON.stringify(bodyData),

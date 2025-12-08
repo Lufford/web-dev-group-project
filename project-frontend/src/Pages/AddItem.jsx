@@ -18,7 +18,7 @@ export default function AddItem() {
             if (!token) return;
 
             try {
-                const res = await fetch ("http://localhost:3000/items", {
+                const res = await fetch ("https://web-dev-group-project-backend.onrender.com/items", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -58,8 +58,8 @@ export default function AddItem() {
         const editing = Boolean(editItem);
 
         const url = editing
-            ? `http://localhost:3000/items/${editItem}`
-            : "http://localhost:3000/items";
+            ? `https://web-dev-group-project-backend.onrender.com/items/${editItem}`
+            : "https://web-dev-group-project-backend.onrender.com/items";
 
         const method = editing ? "PUT" : "POST";
 
@@ -125,7 +125,7 @@ export default function AddItem() {
         if (!window.confirm("Delete?")) return;
 
         try {
-            const res = await fetch(`http://localhost:3000/items/${id}`, {
+            const res = await fetch(`https://web-dev-group-project-backend.onrender.com/items/${id}`, {
                 method: "DELETE",
                 headers: { token: token },
             });

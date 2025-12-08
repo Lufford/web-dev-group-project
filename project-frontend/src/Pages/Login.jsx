@@ -19,7 +19,7 @@ setError("");
 try {
     console.log("Login request sent");
 
-    const res = await fetch('http://localhost:3000/login', {
+    const res = await fetch('https://web-dev-group-project-backend.onrender.com/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
