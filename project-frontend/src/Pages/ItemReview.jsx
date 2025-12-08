@@ -12,7 +12,7 @@ export default function ItemReview() {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const res = await fetch("http://localhost:3000/items/public");
+                const res = await fetch("web-dev-group-project-backend.onrender.com/items/public");
 
                 if (!res.ok) {
                     throw new Error("Failed to fetch items");
